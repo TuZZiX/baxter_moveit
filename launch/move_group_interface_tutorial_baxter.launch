@@ -1,0 +1,12 @@
+<launch>
+
+<include file="$(find baxter_moveit_config)/launch/demo_baxter.launch" />
+<!--
+  <include file="$(find baxter_moveit_config)/launch/demo_baxter.launch" >
+	<arg name="load_robot_description" value="true"/>
+  </include>-->
+
+  <node name="move_group_interface_tutorial" pkg="pr2_moveit_tutorials" type="move_group_interface_tutorial_baxter" respawn="false" output="screen">
+  </node>
+
+</launch>
