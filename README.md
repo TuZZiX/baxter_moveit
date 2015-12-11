@@ -1,8 +1,5 @@
-# baxter_moveit
+# Baxter Moveit
 
-Your description goes here
+This is an exmaple modified from moveit_pr2_tutorials used to show how Moveit! running on Baxter
 
-## Example usage
-
-## Running tests/demos
-    
+About how to use Moveit! on Baxter, please see the documents under */documents*

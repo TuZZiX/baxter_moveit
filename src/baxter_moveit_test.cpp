@@ -81,30 +81,23 @@
  	ROS_INFO("Reference frame: %s", group.getEndEffectorLink().c_str());
 
  	geometry_msgs::Pose my_pose;
- 	my_pose.position.x = 0.54666548495;
- 	my_pose.position.y = -0.102305563037;
- 	my_pose.position.z = 0.306209878016;
- 	my_pose.orientation.x = -0.547922120529;
- 	my_pose.orientation.y = -0.0239951476795;
- 	my_pose.orientation.z = -0.0745942473519;
- 	my_pose.orientation.w = 0.832851295841;
+ 	my_pose.position.x = 0.627811922278;
+ 	my_pose.position.y = -0.00340972086974;
+ 	my_pose.position.z = 0.2143679733262;
+ 	my_pose.orientation.x = 1;
+ 	my_pose.orientation.y = 0;
+ 	my_pose.orientation.z = 0;
+ 	my_pose.orientation.w = 0;
 
- 	//group.setPoseTarget(my_pose);
+ 	group.setPoseTarget(my_pose);
 
- 	//moveit::planning_interface::MoveGroup::Plan my_plan;
-	//bool success = group.plan(my_plan);
-	//std::vector<double> group_variable_values;
- 	//group.getCurrentState()->copyJointGroupPositions(group.getCurrentState()->getRobotModel()->getJointModelGroup(group.getName()), group_variable_values);
+	bool success = group.plan(my_plan);
+	group.move();
 
-  // Now, let's modify one of the joints, plan to the new joint
-  // space goal and visualize the plan.
- 	//group_variable_values[4] = -1.0;  
- 	/*
- 	std::vector<double> group_variable_values;
- 	std::vector<double> my_angle = {-0.687578798801038, -1.2286859555710585, 1.7230128939734446, 1.4960121051119204, -0.3406034304607237, 1.6922049512515933, -2.6852473873167133};
- 	group.setJointValueTarget(my_angle);
- 	group.move();
-
+ 	//std::vector<double> my_angle = {-0.687578798801038, -1.2286859555710585, 1.7230128939734446, 1.4960121051119204, -0.3406034304607237, 1.6922049512515933, -2.6852473873167133};
+ 	//group.setJointValueTarget(my_angle);
+ 	//group.move();
+/*
  	group.getCurrentState()->copyJointGroupPositions(group.getCurrentState()->getRobotModel()->getJointModelGroup(group.getName()), group_variable_values);
  	group_variable_values[0] = 1.0;  
 	group.setJointValueTarget(group_variable_values);
@@ -114,22 +107,23 @@
   collision_object.header.frame_id = "torso";
 
   /* The id of the object is used to identify it. */
-  collision_object.id = "kinect";
+  collision_object.id = "table";
 
   /* Define a box to add to the world. */
   shape_msgs::SolidPrimitive primitive;
   primitive.type = primitive.BOX;
   primitive.dimensions.resize(3);
   primitive.dimensions[0] = 0.3;
-  primitive.dimensions[1] = 0.29;
-  primitive.dimensions[2] = 0.06;
+  primitive.dimensions[1] = 0.06;
+  primitive.dimensions[2] = 0.2;
 
   /* A pose for the box (specified relative to frame_id) */
   geometry_msgs::Pose box_pose;
-  box_pose.orientation.w = 1.0;
-  box_pose.position.x =  0;
-  box_pose.position.y = 0.20;
-  box_pose.position.z =  0.74;
+  box_pose.orientation.w = 2.85997e-05;
+  box_pose.position.x =  0.724836;
+  box_pose.position.y = -2.85997e-05;
+  box_pose.position.z =  0.688921;
+
 
 
   collision_object.primitives.push_back(primitive);
@@ -152,32 +146,32 @@
   group.setPlanningTime(10.0);
 
   // Now when we plan a trajectory it will avoid the obstacle
-  group.setStartState(*group.getCurrentState());
-  group.setPoseTarget(my_pose);
-  bool success = group.plan(my_plan);
+  //group.setStartState(*group.getCurrentState());
+  //group.setPoseTarget(my_pose);
+  //bool success = group.plan(my_plan);
 
 
   // Now, let's attach the collision object to the robot.
-  ROS_INFO("Attach the object to the robot");  
-  group.attachObject(collision_object.id);  
+  //ROS_INFO("Attach the object to the robot");  
+  //group.attachObject(collision_object.id);  
   /* Sleep to give Rviz time to show the object attached (different color). */
-  sleep(4.0);
+  //sleep(4.0);
 
 
   // Now, let's detach the collision object from the robot.
-  ROS_INFO("Detach the object from the robot");  
-  group.detachObject(collision_object.id);  
+  //ROS_INFO("Detach the object from the robot");  
+  //group.detachObject(collision_object.id);  
   /* Sleep to give Rviz time to show the object detached. */
-  sleep(4.0);
+  //sleep(4.0);
 
 
   // Now, let's remove the collision object from the world.
-  ROS_INFO("Remove the object from the world");  
-  std::vector<std::string> object_ids;
-  object_ids.push_back(collision_object.id);  
-  planning_scene_interface.removeCollisionObjects(object_ids);
+  //ROS_INFO("Remove the object from the world");  
+  //std::vector<std::string> object_ids;
+  //object_ids.push_back(collision_object.id);  
+  //planning_scene_interface.removeCollisionObjects(object_ids);
   /* Sleep to give Rviz time to show the object is no longer there. */
-  sleep(4.0);
+  //sleep(4.0);
 
  	return 0;
  }

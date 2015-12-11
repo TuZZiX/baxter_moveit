@@ -52,7 +52,7 @@ int main(int argc, char **argv)
 
 
   /* This sleep is ONLY to allow Rviz to come up */
-  sleep(20.0);
+  //sleep(20.0);
   
   // BEGIN_TUTORIAL
   // 
@@ -178,16 +178,16 @@ int main(int argc, char **argv)
   // Note that this will only work if the current state already 
   // satisfies the path constraints. So, we need to set the start
   // state to a new pose. 
-  robot_state::RobotState start_state(*group.getCurrentState());
+ // robot_state::RobotState start_state(*group.getCurrentState());
   geometry_msgs::Pose start_pose2;
   start_pose2.orientation.w = 1.0;
   start_pose2.position.x = 0.55;
   start_pose2.position.y = -0.05;
-  start_pose2.position.z = 0.8;
+  start_pose2.position.z = 0.8;/*
   const robot_state::JointModelGroup *joint_model_group =
                   start_state.getJointModelGroup(group.getName());
   start_state.setFromIK(joint_model_group, start_pose2);
-  group.setStartState(start_state);
+  group.setStartState(start_state);*/
   
   // Now we will plan to the earlier pose target from the new 
   // start state that we have just created.
@@ -331,7 +331,7 @@ int main(int argc, char **argv)
   target_pose2.position.y = 0.15;
   target_pose2.position.z = 1.0;
 
-  two_arms_group.setPoseTarget(target_pose2, "right_gripper");
+  two_arms_group.setPoseTarget(target_pose2, "left_gripper");
 
   // Now, we can plan and visualize
   moveit::planning_interface::MoveGroup::Plan two_arms_plan;
